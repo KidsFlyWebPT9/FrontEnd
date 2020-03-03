@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+
 // import { connect } from "react-redux";
 
 // import { postRegister } from "../actions";
 
-const LoginExample = props => {
+const ParentLoginForm = props => {
   const [credentials, setCredentials] = useState({
     username: "",
     password: ""
@@ -29,7 +31,7 @@ const LoginExample = props => {
         console.log("this is res in postRegister: ", res);
         localStorage.setItem("token", res.data.token);
         console.log("this is localstorage.token: ", localStorage.token);
-        history.push("/private");
+        props.history.push("/dashboard");
       })
       .catch(err => {
         localStorage.removeItem("token");
@@ -65,16 +67,16 @@ const LoginExample = props => {
   );
 };
 
-// export default LoginExample;
+export default ParentLoginForm;
 
-const mapStateToProps = state => {
-  return {
-    username: state.parent.username,
-    password: state.parent.password
-  }
-};
+// const mapStateToProps = state => {
+//   return {
+//     username: state.parent.username,
+//     password: state.parent.password
+//   }
+// };
 
-export default connect(
-  mapStateToProps,
-  { postRegister }
-)(LoginExample);
+// export default connect(
+//   mapStateToProps,
+//   { postRegister }
+// )(LoginExample);
