@@ -2,6 +2,8 @@ import React from "react";
 import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
+import { Datepicker } from 'react-formik-ui';
+
 
 const NewTrip = ({ errors, touched, values, status }) => {
 
@@ -43,11 +45,22 @@ const NewTrip = ({ errors, touched, values, status }) => {
 
         <div className="field-container">
           <label htmlFor="departTime">Departure Time:
-            <Field className="field-styled"
+            {/* <Field className="field-styled"
               id="departTime"
               type="date"
               name="departTime"
-            />
+            /> */}
+            <Datepicker
+              id="departTime"
+              className="field-styled"
+              name='departTime'
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={30}
+              dateFormat="dd.MM.yyyy hh:mm aa"
+              timeCaption="time"
+              minDate={new Date()}
+            />  
           </label>
         </div>
 
@@ -82,9 +95,9 @@ const NewTrip = ({ errors, touched, values, status }) => {
 
         <div className="btn-container">
           {/* SubButton = <button> */}
-          <button className="btn-Style" type="submit">Log Exercise</button>
+          <button className="btn-Style" type="submit">Create Trip</button>
 
-          <Link exact to="/lastlog">
+          <Link exact to="/dashboard">
             <button className="btn-Style">Return</button>
           </Link>
         </div>

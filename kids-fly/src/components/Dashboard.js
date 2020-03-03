@@ -9,7 +9,7 @@ const Dashboard = () => {
       <AppHeader />
       <div className="dash-btn-container">
         <button>Account</button>
-        <button>Upcoming Trips</button>
+        <Link to="/upcoming-trips"><button>Upcoming Trips</button></Link>
         <Link to="/new-trip"><button>New Trip</button></Link>
         <button>Kids</button>
         <button>Nearby</button>
