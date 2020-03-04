@@ -5,7 +5,6 @@ import './index.css';
 import LandingPage from './components/LandingPage';
 import Header from './components/Header';
 
-
 const App = () => {
     return (
         <div className="App">
