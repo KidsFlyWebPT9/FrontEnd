@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { Datepicker } from 'react-formik-ui';
+
+import NewTripContext from "../context/NewTripContext";
 
 
 const NewTrip = ({ errors, touched, values, status }) => {

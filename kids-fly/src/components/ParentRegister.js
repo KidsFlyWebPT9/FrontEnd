@@ -51,7 +51,7 @@ const ParentRegister = props => {
 
   return (
     <div>
-      <h3>Register</h3>
+      <h3>Parent Register</h3>
         <form className="form-styled" onSubmit={handleRegister}>
           <label>Username: </label>
           <input className="field-styled"
@@ -106,11 +106,12 @@ const ParentRegister = props => {
             <button className="btn-Style">Register</button>
           </div>
         </form>
-        <div className="btn-container">
+        {/* <div className="btn-container">
           <Link exact to="/login">
             <button className="btn-Style">Go to login</button>
           </Link>
-        </div>
+        </div> */}
+        <span>Already a member? </span><Link to="/login">Sign In</Link>
     </div>
   );
 };

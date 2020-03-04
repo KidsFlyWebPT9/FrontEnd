@@ -46,7 +46,7 @@ const ParentLoginForm = ({ props, errors, touched, values, status }) => {
 
   return (
     <div>
-      <h3>Sign-In</h3>
+      <h3>Parent Log In</h3>
       <Form className="form-styled">
         
         <div className="field-container">
@@ -73,10 +73,10 @@ const ParentLoginForm = ({ props, errors, touched, values, status }) => {
 
         <div className="btn-container">
           {/* SubButton = <button> */}
-          <button className="btn-Style" type="submit">Log-In</button>
+          <button className="btn-Style" type="submit">Log In</button>
 
-          <Link exact to="/dashboard">
-            <button className="btn-Style">Return</button>
+          <Link exact to="/">
+            <button className="btn-Style">Register</button>
           </Link>
         </div>
 
