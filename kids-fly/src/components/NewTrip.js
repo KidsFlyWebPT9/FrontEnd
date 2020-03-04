@@ -1,13 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { Datepicker } from 'react-formik-ui';
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 import NewTripContext from "../context/NewTripContext";
 
 
 const NewTrip = ({ errors, touched, values, status }) => {
+
+  const {trips, addNewTrip} = useContext(NewTripContext);
+
+  useEffect(() => {
+    if(status) {
+      addNewTrip(status);
+    };
+  },[status]);
+
+  console.log("this is trips outside", trips);
 
   return (
     <div>
@@ -110,6 +121,7 @@ const NewTrip = ({ errors, touched, values, status }) => {
 };
 
 const FormikNewTrip = withFormik({
+
   mapPropsToValues(props) {
     return {
       airportName: props.airportName || "",
@@ -126,9 +138,17 @@ const FormikNewTrip = withFormik({
     airportName: Yup.string().required("Select an airport")
   }),
 
-  handleSubmit(values, {setStatus, resetForm}) {
+  handleSubmit(values, {setStatus, props, resetForm}) {
     console.log("this is value", values);
     // this is where axios goes
+    axiosWithAuth()
+      .post("https://reqres.in/api/users", values)
+      .then(res => {
+        console.log("this is res", res);
+        setStatus(values);
+        props.history.push("/dashboard");
+      })
+      .catch(err => {console.log("Error: ", err);});
     resetForm();
   }
 })(NewTrip);

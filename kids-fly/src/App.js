@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import logo from './logo.svg';
 import './App.css';
 
 import { Route } from "react-router-dom";
@@ -10,17 +9,23 @@ import Dashboard from "./components/Dashboard";
 import NewTrip from "./components/NewTrip";
 import ParentRegister from "./components/ParentRegister";
 import PrivateRoute from './components/PrivateRoute';
+import UpcomingTrips from './components/UpcomingTrips';
 
 function App() {
-  const[newTrip, setNewTrip] = useState([])
+  const[trips, setTrips] = useState([]);
+
+  const addNewTrip = newTrip => {
+    setTrips([...trips, newTrip]);
+  };
 
   return (
-    <NewTripContext.Provider value={[newTrip, setNewTrip]}>
+    <NewTripContext.Provider value={{trips, addNewTrip}}>
       <div className="App">
-        <Route exact path="/" component={ParentRegister} />
+        <Route path="/registerExample" component={ParentRegister} />
         <Route path="/login" component={ParentLoginForm} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <Route path="/new-trip" component={NewTrip} />
+        <Route path="/upcoming-trips" component={UpcomingTrips} />
       </div>
     </NewTripContext.Provider>
   );

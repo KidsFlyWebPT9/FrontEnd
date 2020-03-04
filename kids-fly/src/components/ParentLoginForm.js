@@ -75,7 +75,7 @@ const ParentLoginForm = ({ props, errors, touched, values, status }) => {
           {/* SubButton = <button> */}
           <button className="btn-Style" type="submit">Log In</button>
 
-          <Link exact to="/">
+          <Link exact to="/registerExample">
             <button className="btn-Style">Register</button>
           </Link>
         </div>
