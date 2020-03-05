@@ -25,7 +25,7 @@ export default function App() {
     setTrips([...trips, newTrip]);
   };
 
-  const[id, setid] = useState(4);
+  const[id, setid] = useState(3);
 
   const updateId = newId => {
     setid(newId);
