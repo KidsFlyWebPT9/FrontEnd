@@ -14,7 +14,11 @@ import UpcomingTrips from './components/UpcomingTrips';
 import UserAccount from './components/UserAccount';
 import UpdateAccount from './components/UpdateAccount';
 
-function App() {
+import LandingPage from './components/LandingPage';
+import Header from './components/Header';
+import ParentInfo from './components/ParentInfo';
+
+export default function App() {
   const[trips, setTrips] = useState([]);
 
   const addNewTrip = newTrip => {
@@ -32,6 +36,9 @@ function App() {
     <IdContext.Provider value={{id, updateId}}>
       <NewTripContext.Provider value={{trips, addNewTrip}}>
         <div className="App">
+          <Header />
+          {/* <LandingPage exact path="/landing-page" component={LandingPage} /> */}
+          <Route exact path="/" component={LandingPage} />
           <Route path="/registerExample" component={ParentRegister} />
           <Route path="/login" component={ParentLoginForm} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
@@ -39,28 +46,9 @@ function App() {
           <PrivateRoute path="/upcoming-trips" component={UpcomingTrips} />
           <PrivateRoute path="/account" component={UserAccount} />
           <PrivateRoute path="/update-account" component={UpdateAccount} />
+          <Route path="/parent-info" component={ParentInfo} />
         </div>
       </NewTripContext.Provider>
     </IdContext.Provider>
-import LandingPage from './components/LandingPage';
-import Header from './components/Header';
-import ParentInfo from './components/ParentInfo';
-
-export default function App() {
-  const [newTrip, setNewTrip] = useState([])
-
-  return (
-    <NewTripContext.Provider value={[newTrip, setNewTrip]}>
-      <div className="App">
-        <Header />
-        <LandingPage exact path="/landing-page" component={LandingPage} />
-        <Route exact path="/" component={ParentRegister} />
-        <Route path="/login" component={ParentLoginForm} />
-        <PrivateRoute path="/dashboard" component={Dashboard} />
-        <Route path="/new-trip" component={NewTrip} />
-        <Route path="/parent-info" component={ParentInfo} />
-        {/* <Route path="/create-login" component={CreateLogin} /> */}
-      </div>
-    </NewTripContext.Provider>
-  );
+  )
 }

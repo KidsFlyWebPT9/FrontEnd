@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 
 const ParentInfo = () => {
-    console.log("Submit data to show", data);
+    // console.log("Submit data to show", data);
     const [parentInfo, setParentInfo] = useState({
         firstName: '',
         lastName: '',
