@@ -24,7 +24,9 @@ const Button = styled.button`
 `;
 
 
-const LandingPage = () => {
+function LandingPage(props) {
+    console.log("landing page", props);
+
     return (
         <HomeWrapperDiv>
             <Image
@@ -32,7 +34,6 @@ const LandingPage = () => {
                 src='https://images.unsplash.com/photo-1497581170673-3d7d98e9a075?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjcyMDE3fQ&q=85&fmt=jpg&crop=entropy&cs=tinysrgb&w=450'
                 alt=""
             />
-            <Button className="enter-button">Enter!</Button>
         </HomeWrapperDiv>
     );
 }

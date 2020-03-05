@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const Homepage = () => {
+const HomePage = () => {
     return (
         <div className="home-wrapper">
             <h2>Sign in options</h2>
@@ -17,4 +17,4 @@ const Homepage = () => {
     )
 };
 
-export default Homepage;
+export default HomePage;
