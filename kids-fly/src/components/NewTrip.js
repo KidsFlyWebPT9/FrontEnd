@@ -1,36 +1,81 @@
-import React, { useContext, useEffect } from "react";
-import { Form, Field, withFormik } from "formik";
-import * as Yup from "yup";
+import React, { useContext, useState} from "react";
 import { Link } from "react-router-dom";
-import { Datepicker } from 'react-formik-ui';
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-import NewTripContext from "../context/NewTripContext";
+// import NewTripContext from "../context/NewTripContext";
+import IdContext from '../context/IdContext';
 
 
-const NewTrip = ({ errors, touched, values, status }) => {
+const NewTrip = props => {
 
-  const {trips, addNewTrip} = useContext(NewTripContext);
+  // const {trips, addNewTrip} = useContext(NewTripContext);
 
-  useEffect(() => {
-    if(status) {
-      addNewTrip(status);
-    };
-  },[status]);
+  const {id} = useContext(IdContext);
 
-  console.log("this is trips outside", trips);
+  const [newTrip, setNewTrip] = useState(
+    {
+      user_id: id,
+      airport_id: "",
+      airline: "",
+      flight_number: "",
+      departure_time: "",
+      luggage: 1,
+      children: 1,
+      special_needs: ""
+    }
+  );
+
+  // useEffect(() => {
+  //   if(status) {
+  //     addNewTrip(status);
+  //   };
+  // },[status]);
+
+  const handleChange = e => {
+    setNewTrip({
+      ...newTrip,
+      [e.target.name]: e.target.value
+    })
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log("this is newTrip", newTrip);
+    // this is where axios goes
+    axiosWithAuth()
+      .post(`https://kidsfly1.herokuapp.com/api/users/${id}/newtrip`, newTrip)
+      .then(res => {
+        console.log("this is res", res);
+        props.history.push("/dashboard");
+      })
+      .catch(err => {console.log("Error: ", err);});
+  };
 
   return (
     <div>
       <h2>Create A New Trip</h2>
-      <Form className="form-styled">
+      <form onSubmit={handleSubmit} className="form-styled">
+
+      <div className="field-container">
+          <label htmlFor="departure_time">Departure Time:
+            <input className="field-styled"
+              id="departure_time"
+              type="text"
+              name="departure_time"
+              onChange={handleChange}
+              value={newTrip.departure_time}
+            />
+          </label>
+        </div>
 
         <div className="field-container">
-          <label htmlFor="airportName">Airport: 
-            <Field className="field-styled"
-              id="airportName"
-              type="text"
-              name="airportName"
+          <label htmlFor="airport_id">Airport Id: 
+            <input className="field-styled"
+              id="airport_id"
+              type="number"
+              name="airport_id"
+              onChange={handleChange}
+              value={newTrip.airport_id}
               // placeholder=""
             />
           </label>
@@ -38,70 +83,60 @@ const NewTrip = ({ errors, touched, values, status }) => {
 
         <div className="field-container">
           <label htmlFor="airline">Airline: 
-            <Field className="field-styled"
+            <input className="field-styled"
               id="airline"
               type="text"
               name="airline"
+              onChange={handleChange}
+              value={newTrip.airline}
             />
           </label>
         </div>
 
         <div className="field-container">
-          <label htmlFor="flightNumber">Flight Number: 
-            <Field className="field-styled"
-              id="flightNumber"
+          <label htmlFor="flight_number">Flight Number: 
+            <input className="field-styled"
+              id="flight_number"
+              type="text"
+              name="flight_number"
+              onChange={handleChange}
+              value={newTrip.flight_number}
+            />
+          </label>
+        </div>
+
+        {/* <div className="field-container">
+          <label htmlFor="luggage">Luggage Quantity:
+            <input className="field-styled"
+              id="luggage"
               type="number"
-              name="flightNumber"
+              name="luggage"
+              onChange={handleChange}
+              value={newTrip.luggage}
             />
           </label>
         </div>
 
         <div className="field-container">
-          <label htmlFor="departTime">Departure Time:
-            {/* <Field className="field-styled"
-              id="departTime"
-              type="date"
-              name="departTime"
-            /> */}
-            <Datepicker
-              id="departTime"
-              className="field-styled"
-              name='departTime'
-              showTimeSelect
-              timeFormat="HH:mm"
-              timeIntervals={30}
-              dateFormat="dd.MM.yyyy hh:mm aa"
-              timeCaption="time"
-              minDate={new Date()}
-            />  
-          </label>
-        </div>
-
-        <div className="field-container">
-          <label htmlFor="numCarryOns">Number Of Carry Ons:
-            <Field className="field-styled"
-              id="numCarryOns"
+          <label htmlFor="children">Number Of Children:
+            <input className="field-styled"
+              id="children"
               type="number"
-              name="numCarryOns"
+              name="children"
+              onChange={handleChange}
+              value={newTrip.children}
             />
           </label>
-        </div>
+        </div> */}
 
         <div className="field-container">
-          <label htmlFor="numKids">Number Of Kids:
-            <Field className="field-styled"
-              id="numKids"
-              type="number"
-              name="numKids"
-            />
-          </label>
-        </div>
-
-        <div className="field-container">
-          <label htmlFor="notes">Notes:
-            <Field as="textarea" className="field-styled"
-              id="notes"
-              name="notes"
+          <label htmlFor="special_needs">Special Needs:
+            <input className="field-styled"
+              type="text"
+              id="special_needs"
+              name="special_needs"
+              onChange={handleChange}
+              value={newTrip.special_needs}
             />
           </label>
         </div>
@@ -110,48 +145,14 @@ const NewTrip = ({ errors, touched, values, status }) => {
           {/* SubButton = <button> */}
           <button className="btn-Style" type="submit">Create Trip</button>
 
-          <Link exact to="/dashboard">
+          <Link to="/dashboard">
             <button className="btn-Style">Return</button>
           </Link>
         </div>
 
-      </Form>
+      </form>
     </div>
   )
 };
 
-const FormikNewTrip = withFormik({
-
-  mapPropsToValues(props) {
-    return {
-      airportName: props.airportName || "",
-      airline: props.airline || "",
-      flightNumber: props.flightNumber || "",
-      departTime: props.departTime || "",
-      numCarryOns: props.numCarryOns || "",
-      numKids: props.numKids || "",
-      notes: props.notes || ""
-    };
-  },
-
-  validationSchema: Yup.object().shape({
-    airportName: Yup.string().required("Select an airport")
-  }),
-
-  handleSubmit(values, {setStatus, props, resetForm}) {
-    console.log("this is value", values);
-    // this is where axios goes
-    axiosWithAuth()
-      .post("https://reqres.in/api/users", values)
-      .then(res => {
-        console.log("this is res", res);
-        setStatus(values);
-        props.history.push("/dashboard");
-      })
-      .catch(err => {console.log("Error: ", err);});
-    resetForm();
-  }
-})(NewTrip);
-
-// export default NewTrip;
-export default FormikNewTrip;
+export default NewTrip;

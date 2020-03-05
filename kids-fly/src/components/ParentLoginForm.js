@@ -5,44 +5,15 @@ import { Link } from "react-router-dom";
 
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-// import { connect } from "react-redux";
-
-// import { postRegister } from "../actions";
-
 const ParentLoginForm = ({ props, errors, touched, values, status }) => {
 
-  // const [credentials, setCredentials] = useState({
-  //   username: "",
-  //   password: ""
-  // });
+  // const {username, updateUsername} = useContext(UsernameContext);
 
-  // const handleChange = e => {
-  //   setCredentials({
-  //     ...credentials,
-  //     [e.target.name]: e.target.value
-  //   })
-  // };
-
-  // const handleLogin = e => {
-  //   e.preventDefault();
-  //   // props.postRegister(credentials, props.history);
-  //   axiosWithAuth()
-  //     .post("https://kidsfly-lambda2.herokuapp.com/api/auth/login", credentials)
-  //     .then(res => {
-  //       console.log("this is res in postRegister: ", res);
-  //       localStorage.setItem("token", res.data.token);
-  //       console.log("this is localstorage.token: ", localStorage.token);
-  //       props.history.push("/dashboard");
-  //     })
-  //     .catch(err => {
-  //       localStorage.removeItem("token");
-  //       console.log("invalid login ", err);
-  //     });
-  //   setCredentials({
-  //     username: "",
-  //     password: ""
-  //   });
-  // };
+  // useEffect(() => {
+  //   if(status) {
+  //     updateUsername(status);
+  //   };
+  // }, [status]);
 
   return (
     <div>
@@ -75,7 +46,7 @@ const ParentLoginForm = ({ props, errors, touched, values, status }) => {
           {/* SubButton = <button> */}
           <button className="btn-Style" type="submit">Log In</button>
 
-          <Link exact to="/registerExample">
+          <Link to="/registerExample">
             <button className="btn-Style">Register</button>
           </Link>
         </div>
@@ -119,7 +90,7 @@ const FormikParentLoginForm = withFormik({
     console.log("this is value", values);
     // this is where axios goes
     axiosWithAuth()
-      .post("https://kidsfly-lambda2.herokuapp.com/api/auth/login", values)
+      .post("https://kidsfly1.herokuapp.com/api/auth/login", values)
       .then(res => {
         console.log("this is res in postRegister: ", res);
         localStorage.setItem("token", res.data.token);
