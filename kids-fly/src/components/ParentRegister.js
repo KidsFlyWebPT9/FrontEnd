@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-// import axios from "axios";
+// import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { Link } from "react-router-dom";
 
-
+import IdContext from '../context/IdContext';
 
 const ParentRegister = props => {
+  const {updateId} = useContext(IdContext);
+
   const [credentials, setCredentials] = useState({
-    // id: new Date(),
     username: '',
     password: ''
-    // firstName: '',
-    // lastName: '',
+    // name: '',
     // address: '',
-    // airport: '',
-    // phoneNumber: ''
+    // airport_id: '',
+    // phone: ''
   });
 
   const handleChange = e => {
@@ -30,9 +30,12 @@ const ParentRegister = props => {
   const handleRegister = e => {
     e.preventDefault();
     axiosWithAuth()
-      .post("https://kidsfly-lambda2.herokuapp.com/api/auth/register", credentials)
+      // .post("https://kidsflypt9.herokuapp.com/users", credentials)
+      // .post("https://kidsfly-lambda2.herokuapp.com/register", credentials)
+      .post("https://kidsfly1.herokuapp.com/api/auth/register", credentials)
       .then(res => {
         console.log("this is res in handleLogin: ", res);
+        updateId(res.data.id);
         props.history.push("/login");
       })
       .catch(err => {
@@ -41,11 +44,10 @@ const ParentRegister = props => {
     setCredentials({
       username: '',
       password: ''
-      // firstName: '',
-      // lastName: '',
+      // name: '',
       // address: '',
-      // airport: '',
-      // phoneNumber: ''
+      // airport_id: '',
+      // phone: ''
     });
   };
 
@@ -68,38 +70,31 @@ const ParentRegister = props => {
             onChange={handleChange}
           />
           {/* <label>First Name: </label>
-          <input
+          <input className="field-styled"
             type="text"
-            name="firstName"
-            value={credentials.firstName}
+            name="first_name"
+            value={credentials.first_name}
             onChange={handleChange}
           />
           <label>Last Name: </label>
-          <input
+          <input className="field-styled"
             type="text"
-            name="lastName"
-            value={credentials.lastName}
-            onChange={handleChange}
-          />
-          <label>Address: </label>
-          <input
-            type="text"
-            name="address"
-            value={credentials.address}
+            name="last_name"
+            value={credentials.last_name}
             onChange={handleChange}
           />
           <label>Airport: </label>
-          <input
+          <input className="field-styled"
             type="text"
             name="airport"
             value={credentials.airport}
             onChange={handleChange}
           />
           <label>Phone Number: </label>
-          <input
+          <input className="field-styled"
             type="text"
-            name="phoneNumber"
-            value={credentials.phoneNumber}
+            name="phone"
+            value={credentials.phone}
             onChange={handleChange}
           /> */}
           <div className="btn-container">
