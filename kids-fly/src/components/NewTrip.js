@@ -1,5 +1,5 @@
 import React, { useContext, useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 // import NewTripContext from "../context/NewTripContext";
@@ -15,12 +15,12 @@ const NewTrip = props => {
   const [newTrip, setNewTrip] = useState(
     {
       user_id: id,
-      airport_id: "",
+      airport_id: 1,
       airline: "",
       flight_number: "",
       departure_time: "",
-      luggage: 1,
-      children: 1,
+      luggage: 0,
+      children: 0,
       special_needs: ""
     }
   );
@@ -105,7 +105,7 @@ const NewTrip = props => {
           </label>
         </div>
 
-        {/* <div className="field-container">
+        <div className="field-container">
           <label htmlFor="luggage">Luggage Quantity:
             <input className="field-styled"
               id="luggage"
@@ -127,7 +127,7 @@ const NewTrip = props => {
               value={newTrip.children}
             />
           </label>
-        </div> */}
+        </div>
 
         <div className="field-container">
           <label htmlFor="special_needs">Special Needs:
@@ -155,4 +155,4 @@ const NewTrip = props => {
   )
 };
 
-export default NewTrip;
+export default withRouter(NewTrip);

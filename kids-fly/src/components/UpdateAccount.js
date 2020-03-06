@@ -4,7 +4,7 @@ import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 import IdContext from '../context/IdContext';
 
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 const initialInfo = {
   name: "",
@@ -113,4 +113,4 @@ const UpdateAccount = props => {
   )
 };
 
-export default UpdateAccount;
+export default withRouter(UpdateAccount);

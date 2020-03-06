@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 import NewTripContext from "./context/NewTripContext";
 import IdContext from "./context/IdContext";
 
@@ -42,7 +42,7 @@ export default function App() {
           <Route path="/registerExample" component={ParentRegister} />
           <Route path="/login" component={ParentLoginForm} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
-          <PrivateRoute path="/new-trip" component={NewTrip} />
+          <PrivateRoute path="/new-trip" component={NewTrip}/>
           <PrivateRoute path="/upcoming-trips" component={UpcomingTrips} />
           <PrivateRoute path="/account" component={UserAccount} />
           <PrivateRoute path="/update-account" component={UpdateAccount} />

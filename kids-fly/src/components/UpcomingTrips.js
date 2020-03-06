@@ -1,22 +1,38 @@
-// import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import NewTripContext from "../context/NewTripContext";
-// import { axiosWithAuth } from "../utils/axiosWithAuth";
-// import TripCard from './TripCard';
-// import { Link } from 'react-router-dom';
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+import TripCard from './TripCard';
+import { Link, withRouter } from 'react-router-dom';
 
-import React from "react";
+import IdContext from '../context/IdContext';
 
-const UpcomingTrips = () => {
-  // const {trips, addNewTrip} = useContext(NewTripContext);
 
-  // console.log(trips);
+const UpcomingTrips = props => {
+  const {id} = useContext(IdContext);
+
+  const [trips, setTrips] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    axiosWithAuth()
+      .get(`https://kidsfly1.herokuapp.com/api/trips`)
+      .then(res => {
+        console.log("res", res);
+        setTrips(res.data);
+      })
+      .catch(err => {console.log(err)});
+  };
 
   return (
     <div>
-      {/* {trips.length > 0 ? ( 
+      <h3>Upcoming Trips</h3>
+      {trips.length > 0 ? ( 
         trips.map(trip => {
           return <div>
-            <TripCard trip={trip}/>
+           {id === trip.user_id && <TripCard trip={trip} props={props}/>}
           </div>
         })
       ) : (
@@ -25,9 +41,9 @@ const UpcomingTrips = () => {
       }
       <Link to="/dashboard">
         <button className="btn-Style">Return</button>
-      </Link> */}
+      </Link>
     </div>
   )
 };
 
-export default UpcomingTrips;
+export default withRouter(UpcomingTrips);
